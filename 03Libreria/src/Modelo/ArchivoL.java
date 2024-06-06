@@ -33,6 +33,27 @@ public class ArchivoL implements Serializable{
         }catch(Exception e){
             System.out.println("Error " + e.getMessage());
             }
+        return listadelibros;
+        
+    }
+    
+    
+    //metodo para escribir
+    void escribir(ArrayList<CLibros> listaserializada){
+        try{
+            //generando primero el archivo de salida
+            FileOutputStream salida = new FileOutputStream("libro.txt");
+            //genero la escritura de los objetos
+            ObjectOutputStream salidaobjeto = new ObjectOutputStream(salida);
+            
+            //y ahora empiezo a escribir
+            salidaobjeto.writeObject(listaserializada);
+            
+           
+            
+        }catch(Exception e){
+            System.out.println("Error : " + e.getMessage());
+        }
     }
     
 }
