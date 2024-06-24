@@ -51,6 +51,7 @@ public class RegistrarEstudiante extends HttpServlet {
         try{
             //vamos a intentar conectarnos a la bd
             Class.forName("com.mysql.jdbc.Driver");
+            url = "jdbc:mysql://localhost/registroalumnos";
             //obtenemos un objeto para realizar la conexion
             con = DriverManager.getConnection(url, username, password);
             //ejecuto la sentencia para su conexion
@@ -71,15 +72,54 @@ public class RegistrarEstudiante extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            //vamos a obtener cada uno de los parametros del formulario
+            
+            String nom, appat, apmat, correo;
+            int edad;
+            
+            nom = request.getParameter("nombre");
+            appat = request.getParameter("appat");
+            apmat = request.getParameter("apmat");
+            correo = request.getParameter("correo");
+            
+            edad = Integer.parseInt(request.getParameter("edad"));
+            
+            System.out.println(nom);
+            System.out.println(appat);
+            System.out.println(apmat);
+            System.out.println(edad);
+            System.out.println(correo);
+            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegistrarEstudiante</title>");            
+            out.println("<title>Registro de Estudiante</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RegistrarEstudiante at " + request.getContextPath() + "</h1>");
+            try{
+                String querry = "insert into "
+                        + "alumnos(nombre, apellido, edad, correo)"
+                        + " values ('"+nom+"', '"+appat+ " " + apmat+"', "+edad+", '"+correo+"')";
+                
+                //debemos preparar la sentencia
+                set.executeUpdate(querry);
+                System.out.println("Registro exitoso");
+            
+            out.println("<h1>El estudiante ha sido Registrado</h1>");
+            
+            
+
+            }catch(Exception e){
+                System.out.println("Error : " + e.getMessage());
+                System.out.println("No se registro");
+                System.out.println("Localizacion: " + e.getStackTrace());
+                out.println("<h1>Ha sucedido un problema contacte al admin</h1>");
+            }
+            out.println("<a href='index.html' >Regresar al Formulario</a>");
             out.println("</body>");
             out.println("</html>");
+            
+           
         }
     }
 
