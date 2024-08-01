@@ -5,9 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.*;" %>
-<%@page import="Modelo.Alumno" %>
-<%@page import="Controlador.AccionesAlumno" %>
+<%@page import="java.util.*, Modelo.Alumno, Controlador.*" %>
+<%@page import="Modelo.*" %>
+<%@page import="Controlador.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,7 +28,7 @@
                 <tbody>
                     <% 
                         //tenemos que crear la lista de alumnos
-                        List<Alumno> listaalumnos = AccionesAlumno.getAllAlumnos();
+                        ArrayList<Alumno> listaalumnos = AccionesAlumno.getAllAlumnos();
                         for(Alumno alu:listaalumnos){
                     %>
                     <tr>
